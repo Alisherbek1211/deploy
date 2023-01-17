@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+    <title>Update app</title>
+  </head>
+  <body>
+    <center>
+        <h1>Todo App</h1>
+    </center>
+
+    <form action="" method="POST" class="container mt-5 mb-5">
+        {% csrf_token %}
+        <input type="text" class="form-control" placeholder="{{task.task}}" name="task" required>
+        <div class="mytime">
+            <span class="input-group-text" id="basic-addon1">Start</span>
+            <input type="datetime-local" name="start" placeholder="Start" class="time" required>
+            <span class="input-group-text" id="basic-addon1">Finish</span>
+            <input type="datetime-local" name="finish" placeholder="Finish" class="time" required>
+        </div>
+        <input type="submit" value="Update" class="btn btn-success mybtn">
+    </form>
+
+    <style>
+        .mybtn {
+            display:block;
+            margin: 10px auto;
+            padding: 10px 15px;
+            border-radius: 10px;
+        }
+        .time {
+            width: 40%;
+            margin: 15px;
+            height: 35px;
+            border-radius: 10px;
+        }
+        .mytime {
+            margin: 10px 15px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+    </style>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+
+  </body>
+</html>

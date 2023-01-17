@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+    <title>Todo app</title>
+  </head>
+  <body>
+    <center class="mt-5 container">
+        <h1>Todo App</h1>
+        {% if messages %}
+        {% for message in messages %}
+            {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}
+                <div class="alert alert-danger" role="alert">
+                    {{message}}
+                </div>
+            {% endif %}
+            {% if message.level == DEFAULT_MESSAGE_LEVELS.SUCCESS %}
+                <div class="alert alert-success" role="alert">
+                    {{message}}
+                </div>
+            {% endif %}
+            {% endfor %}
+        {% endif %}
+    </center>
+    
+    <form action="" method="POST" class="container mt-5 mb-5">
+        {% csrf_token %}
+        <input type="text" class="form-control" placeholder="Enter Task" name="task" required>
+        <div class="mytime">
+            <span class="input-group-text" id="basic-addon1">Start</span>
+            <input type="datetime-local" name="start" placeholder="Start" class="time" required>
+            <span class="input-group-text" id="basic-addon1">Finish</span>
+            <input type="datetime-local" name="finish" placeholder="Finish" class="time" required>
+        </div>
+        <input type="submit" value="Add" class="btn btn-success mybtn">
+    </form>
+
+    <div class="container">
+        <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">N</th>
+                <th scope="col">User</th>
+                <th scope="col">Task</th>
+                <th scope="col">Start</th>
+                <th scope="col">Finish</th>
+                <th scope="col">Status</th>
+                <th scope="col">Update</th>
+                <th scope="col">Complete(Uncomplate)</th>
+                <th scope="col">Delete</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for todo in todos %}
+                <tr>
+                    <th scope="row">{{forloop.counter}}</th>
+                    <td>{{todo.user}}</td>
+                    <td>{{todo.task}}</td>
+                    <td>{{todo.start}}</td>
+                    <td>{{todo.finish}}</td>
+                    <td>
+                        {% if todo.status %}
+                            <p>✅ Done</p>
+                        {% else %}
+                            <p>♾ Working</p>
+                        {% endif %}
+                    </td>
+                    <td>
+                        <a href="/update/{{todo.id}}" class="btn btn-success">Update</a>
+                    </td>
+                    <td>
+                        {% if todo.status %}
+                            <a href="/complate/{{todo.id}}/" class="btn btn-primary">UnComplete</a>
+                        {% else %}
+                            <a href="/complate/{{todo.id}}/" class="btn btn-primary">Complete</a>
+                        {% endif %}
+                        
+                    </td>
+                    <td>
+                        <a href="/delete/{{todo.id}}" class="btn btn-danger">Delete</a>
+                    </td>
+                </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+    </div>
+    <style>
+        .mybtn {
+            display:block;
+            margin: 10px auto;
+            padding: 10px 15px;
+            border-radius: 10px;
+        }
+        .time {
+            width: 40%;
+            margin: 15px;
+            height: 35px;
+            border-radius: 10px;
+        }
+        .mytime {
+            margin: 10px 15px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+    </style>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+
+  </body>
+</html>
